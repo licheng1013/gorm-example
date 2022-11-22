@@ -12,3 +12,7 @@
 - 导入项目的sql文件到该数据库中
 - 数据库的配置在项目的config/msyql下
 - [https://gitee.com/licheng1013/gorm-example/blob/master/config/mysql.go](https://gitee.com/licheng1013/gorm-example/blob/master/config/mysql.go)
+
+
+## 备注
+- 请使用最新Goland正式版
