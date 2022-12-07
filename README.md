@@ -1,10 +1,11 @@
 # Gorm
 ## 介绍
 - Gorm插件的示例代码
+- 此仓库将移动至Github: []
 
 ## 文档
-- github: [https://licheng1013.github.io/plugins/gorm.html](https://licheng1013.github.io/plugins/gorm.html)
-- gitee: [https://licheng1013.gitee.io/plugins/gorm.html](https://licheng1013.gitee.io/plugins/gorm.html)
+- Github: [https://licheng1013.github.io/plugins/gorm.html](https://licheng1013.github.io/plugins/gorm.html)
+- Gitee: [https://licheng1013.gitee.io/plugins/gorm.html](https://licheng1013.gitee.io/plugins/gorm.html)
 
 
 ## 如何使用示例项目
