@@ -1,7 +1,7 @@
 # Gorm
 ## 介绍
 - Gorm插件的示例代码
-- 此仓库将移动至Github: []
+- 此仓库将移动至Github: [https://github.com/licheng1013/gorm-example](https://github.com/licheng1013/gorm-example)
 
 ## 文档
 - Github: [https://licheng1013.github.io/plugins/gorm.html](https://licheng1013.github.io/plugins/gorm.html)
