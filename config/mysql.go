@@ -14,7 +14,7 @@ func MysqlInit() {
 	newLogger := logger.Default
 
 	log.Println("Mysql:初始化！")
-	dsn := "root:root@tcp(192.168.1.4:3306)/t_gorm?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:root@tcp(192.168.101.8:3306)/t_gorm?charset=utf8mb4&parseTime=True&loc=Local"
 	v, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		Logger: newLogger,
 		NamingStrategy: schema.NamingStrategy{

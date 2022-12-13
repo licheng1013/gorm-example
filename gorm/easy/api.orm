@@ -1,0 +1,99 @@
+package ${model}
+
+import (
+	"github.com/gin-gonic/gin"
+	"gorm-example/common"
+	"gorm-example/model"
+	"gorm.io/gorm"
+	"log"
+	"net/http"
+)
+
+func init() {
+	c := &${name}{}
+	c.init(common.R) //这里需要引入你的gin框架的实例
+}
+
+func (t ${name}) init(g *gin.Engine) {
+	// 依次: 分页列表，单条，插入，修改，删除
+	group := g.Group("/${path}")
+	group.GET("/list", t.list) //不设置限制条件的画默认查询所有
+	group.GET("/one", t.one)
+	group.POST("/insert", t.insert)
+	group.POST("/update", t.update)
+	group.POST("/delete", t.delete)
+}
+
+// ${name} 控制器
+type ${name} struct {
+	Page int `form:"page"`
+	Size int `form:"size"`
+	Ids  []int `form:"ids"`
+}
+func (t ${name}) db() *gorm.DB {
+	return common.Db
+}
+
+// 分页列表
+func (t ${name}) list(c *gin.Context) {
+	_ = c.Bind(&t)
+	v := &${entity}{}
+	_ = c.Bind(&v)
+
+	// 结果
+	var lists []${entity}
+	t.db().Model(&v).Where(&v).Order("").Offset((t.Page - 1) * t.Size).Limit(t.Size).Find(&lists)
+	// 统计
+	var total int64
+	t.db().Model(&v).Where(&v).Count(&total)
+
+	data := make(map[string]interface{})
+	data["list"] = lists
+	data["total"] = total
+	c.JSON(http.StatusOK, model.OkData(data))
+}
+
+// 根据主键Id查询记录
+func (t ${name}) one(c *gin.Context) {
+	var v ${entity}
+	_ = c.Bind(&v)
+    db := t.db().Find(&v, v.${id})
+    if db.RowsAffected != 1 {
+        log.Println("未找到数据！")
+    }
+	c.JSON(http.StatusOK, model.OkData(v))
+}
+
+// 修改记录
+func (t ${name}) update(c *gin.Context) {
+	var v ${entity}
+	_ = c.ShouldBindJSON(&v)
+	tx := t.db().Model(&v).Updates(v)
+	if tx.Error != nil {
+		log.Panicln(tx.Error.Error())
+	}
+	c.JSON(http.StatusOK, model.OkMsg("修改成功！"))
+}
+
+
+// 插入记录
+func (t ${name}) insert(c *gin.Context) {
+	var v ${entity}
+	_ = c.ShouldBindJSON(&v)
+	tx := t.db().Save(&v)
+	if tx.Error != nil {
+		log.Panicln(tx.Error.Error())
+	}
+	c.JSON(http.StatusOK, model.OkMsg("插入成功！"))
+}
+
+
+// 根据主键删除
+func (t ${name}) delete(c *gin.Context) {
+	_ = c.Bind(&t)
+	tx := t.db().Delete(&${entity}{}, t.Ids)
+	if tx.Error != nil {
+		log.Panicln(tx.Error.Error())
+	}
+	c.JSON(http.StatusOK, model.OkMsg("删除成功！"))
+}

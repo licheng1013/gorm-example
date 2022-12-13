@@ -4,8 +4,8 @@ import (
     "time"
 )
 
-type Admin struct {
-	 // 管理员id
+type Admin struct{
+    // 管理员id
     AdminId int64 `json:"adminId" form:"adminId" gorm:"primaryKey" `
     // 账号
     UserName string `json:"userName" form:"userName" `

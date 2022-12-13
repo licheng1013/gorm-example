@@ -1,4 +1,4 @@
-package service
+package ${model}
 
 import (
 	"gorm-example/common"
@@ -7,20 +7,20 @@ import (
 	"log"
 )
 
-var AdminService = adminService{}
+var ${serviceName} = ${name}{}
 
-// adminService 业务层
-type adminService struct {
+// ${name} 业务层
+type ${name} struct {
 }
 
-func (t adminService) db() *gorm.DB {
+func (t ${name}) db() *gorm.DB {
 	return common.Db
 }
 
 // List 分页列表
-func (t adminService) List(page, size int, v *model.Admin) map[string]interface{} {
+func (t ${name}) List(page, size int, v *${entity}) map[string]interface{} {
 	// 结果
-	var lists []model.Admin
+	var lists []${entity}
 	t.db().Model(&v).Where(&v).Order("").Offset((page - 1) * size).Limit(size).Find(&lists)
 	// 统计
 	var total int64
@@ -32,8 +32,8 @@ func (t adminService) List(page, size int, v *model.Admin) map[string]interface{
 }
 
 // One 根据主键Id查询记录
-func (t adminService) One(id interface{}) model.Admin {
-	var v model.Admin
+func (t ${name}) One(id interface{}) ${entity} {
+	var v ${entity}
 	db := t.db().Find(&v, id)
 	if db.RowsAffected != 1 {
 		log.Println("未找到数据！")
@@ -42,7 +42,7 @@ func (t adminService) One(id interface{}) model.Admin {
 }
 
 // Update 修改记录 true -> 操作成功
-func (t adminService) Update(v model.Admin) bool {
+func (t ${name}) Update(v ${entity}) bool {
 	tx := t.db().Model(&v).Updates(v)
 	if tx.Error != nil {
 		log.Panicln(tx.Error.Error())
@@ -52,7 +52,7 @@ func (t adminService) Update(v model.Admin) bool {
 }
 
 // Insert 插入记录 true -> 操作成功 注: 主键也传递进来的话，那么就会执行更新或插入操作
-func (t adminService) Insert(v model.Admin) bool {
+func (t ${name}) Insert(v ${entity}) bool {
 	tx := t.db().Save(&v)
 	if tx.Error != nil {
 		log.Panicln(tx.Error.Error())
@@ -62,8 +62,8 @@ func (t adminService) Insert(v model.Admin) bool {
 }
 
 // Delete 根据主键删除 true -> 操作成功
-func (t adminService) Delete(ids []int) bool {
-	tx := t.db().Delete(model.Admin{}, ids)
+func (t ${name}) Delete(ids []int) bool {
+	tx := t.db().Delete(${entity}{}, ids)
 	if tx.Error != nil {
 		log.Panicln(tx.Error.Error())
 		return false
